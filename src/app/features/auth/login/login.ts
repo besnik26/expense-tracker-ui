@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup,ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
+import { LoginRequest } from '../interfaces/login-request.interface';
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -19,6 +21,7 @@ export class Login  {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private authService: AuthService
 
   ){
     this.loginForm = this.fb.group({
@@ -33,9 +36,13 @@ export class Login  {
 
 
   onSubmit(): void {
-    if (this.loginForm.valid) {
-      // this.isLoading = true;
-      console.log(this.loginForm.value)
-    }
+    if (this.loginForm.invalid) return;
+      this.authService.login(this.loginForm.value as LoginRequest).subscribe({
+        next: () => this.router.navigate(['/dashboard']),
+        error: (err) => {
+          console.error('Login failed', err);
+          alert(err.error?.message ?? 'Invalid credentials');
+        }
+      });
   }
 }

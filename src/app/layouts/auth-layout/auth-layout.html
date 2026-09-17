@@ -1,4 +1,13 @@
+<nav>
+    <img src="general/logo-main.png" alt="logo">
+    <ul>
+        <li routerLink="/auth/login" routerLinkActive="active">Login</li>
+        <li routerLink="/auth/register" routerLinkActive="active">Register</li>
+    </ul>
+</nav>
+
 <main>
-    <h1>Expense Tracker</h1>
-    <router-outlet></router-outlet>
+    <div class="form-container">
+        <router-outlet></router-outlet>
+    </div>
 </main>

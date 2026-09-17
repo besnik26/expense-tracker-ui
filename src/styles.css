@@ -227,6 +227,11 @@ label {
   font-weight: 600;
 }
 
+input:-internal-autofill-selected {
+    background-color: var(--bg-secondary)!important;
+    color: white!important;
+}
+
 input,
 select,
 textarea {

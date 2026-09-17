@@ -1,2 +1,17 @@
-<p>app-layout works!</p>
-<router-outlet></router-outlet>
+<div class="container">
+    <aside>
+        <nav>
+            <div class="nav-container">
+                 <img src="general/logo-main.png" alt="logo">
+        
+                <ul>
+                    <li routerLink="/dashboard" routerLinkActive="active">Dashboard</li>
+                </ul>
+            </div>
+            <button class="btn btn-primary" (click)="logOut()">Log out</button>
+        </nav>
+    </aside>
+    <main>
+        <router-outlet></router-outlet>
+    </main>
+</div>

@@ -3,3 +3,13 @@ export interface User {
   name: string;
   email: string;
 }
+
+export interface AuthData {
+  token: string;
+  user: User;
+}
+
+export interface AuthResponse {
+  success: boolean;
+  data: AuthData;
+}

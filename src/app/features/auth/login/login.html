@@ -1,6 +1,5 @@
-<p>login works!</p>
- <ng-container >
-      <h2>Log in to CMS</h2>
+<div >
+      <h2>Log in</h2>
       <form [formGroup]="loginForm" class="form-container">
         <div class="form-field-div">
           <label for="email">Email</label>
@@ -14,7 +13,7 @@
   
       </form>
       
-      <div class="d-flex flex-column align-items-center">
-        <button (click)="onSubmit()">Log in</button>
+      <div class="btn-container">
+        <button class="btn btn-primary" (click)="onSubmit()">Log in</button>
       </div>
-    </ng-container>
+</div>
