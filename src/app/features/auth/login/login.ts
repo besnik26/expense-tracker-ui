@@ -36,7 +36,7 @@ export class Login  {
 
 
   onSubmit(): void {
-    if (this.loginForm.invalid) return;
+    if (this.loginForm.valid){
       this.authService.login(this.loginForm.value as LoginRequest).subscribe({
         next: () => this.router.navigate(['/dashboard']),
         error: (err) => {
@@ -44,5 +44,15 @@ export class Login  {
           alert(err.error?.message ?? 'Invalid credentials');
         }
       });
+    }else{
+      this.markFormGroupTouched(this.loginForm);
+    }
   }
+
+  markFormGroupTouched(formGroup:FormGroup){
+    Object.values(formGroup.controls).forEach(control =>{
+      control.markAsTouched();
+    })
+  }
+
 }

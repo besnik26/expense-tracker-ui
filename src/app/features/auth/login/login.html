@@ -1,19 +1,27 @@
 <div >
       <h2>Log in</h2>
-      <form [formGroup]="loginForm" class="form-container">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-container">
         <div class="form-field-div">
           <label for="email">Email</label>
           <input type="text" id="email" formControlName="email">
+          @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
+            <small>This field is required</small>
+          }
         </div>
       
         <div class="form-field-div">
           <label for="password">Password</label>
           <input type="password" id="password" formControlName="password">
+          @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
+            <small>This field is required</small>
+          }
         </div>
+
+        
+      <div class="btn-container">
+        <button class="btn btn-primary" type="submit">Log in</button>
+      </div>
   
       </form>
       
-      <div class="btn-container">
-        <button class="btn btn-primary" (click)="onSubmit()">Log in</button>
-      </div>
 </div>

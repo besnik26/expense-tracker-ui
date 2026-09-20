@@ -45,8 +45,15 @@ export const routes: Routes = [
             {
                 path:'dashboard',
                 loadComponent:()=>
-                    import('./features/dashboard/dashboard/dashboard').then(
+                    import('./features/dashboard/dashboard').then(
                         m => m.Dashboard
+                    )
+            },
+            {
+                path:'transactions',
+                loadComponent:()=>
+                    import('./features/transactions/transactions').then(
+                        m => m.Transactions
                     )
             }
            

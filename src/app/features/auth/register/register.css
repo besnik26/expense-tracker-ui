@@ -25,3 +25,7 @@ h2{
     max-width: 180px;
 }
 
+small{
+    color: var(--danger);
+}
+

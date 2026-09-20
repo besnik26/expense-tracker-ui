@@ -27,16 +27,25 @@ export class Register {
 
 
   onSubmit(): void {
-    if (this.registerForm.invalid) return;
+    if (this.registerForm.valid){
+      this.authService.register(this.registerForm.value).subscribe({
+        next: () => {
+          this.router.navigate(['/login']);
+        },
+        error: (err) => {
+          alert(err.error?.message || 'Registration failed');
+        }
+      });
+    }else{
+      this.markFormGroupTouched(this.registerForm);
+    }
 
-    this.authService.register(this.registerForm.value).subscribe({
-      next: () => {
-        this.router.navigate(['/login']);
-      },
-      error: (err) => {
-        alert(err.error?.message || 'Registration failed');
-      }
-    });
+  }
+
+  markFormGroupTouched(formGroup:FormGroup){
+    Object.values(formGroup.controls).forEach(control =>{
+      control.markAsTouched();
+    })
   }
 
 }

@@ -1,25 +1,36 @@
 <div >
       <h2>Register</h2>
-      <form [formGroup]="registerForm" class="form-container">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form-container">
 
         <div class="form-field-div">
           <label for="name">Full name</label>
           <input type="text" id="name" formControlName="name">
+          @if (registerForm.get('name')?.touched && registerForm.get('name')?.invalid) {
+            <small>This field is required</small>
+          }
         </div>
 
         <div class="form-field-div">
           <label for="email">Email</label>
           <input type="text" id="email" formControlName="email">
+          @if (registerForm.get('email')?.touched && registerForm.get('email')?.invalid) {
+            <small>This field is required</small>
+          }
         </div>
       
         <div class="form-field-div">
           <label for="password">Password</label>
           <input type="password" id="password" formControlName="password">
+          @if (registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
+            <small>This field is required</small>
+          }
+        </div>
+
+        <div class="btn-container">
+          <button class="btn btn-primary" type="submit">Register</button>
         </div>
   
       </form>
       
-      <div class="btn-container">
-        <button class="btn btn-primary" (click)="onSubmit()">Register</button>
-      </div>
+      
 </div>
