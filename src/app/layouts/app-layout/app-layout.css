@@ -2,13 +2,14 @@
     display: flex;
     flex-direction: row;
     height: 100%;
+    padding-top: 0px;
+    position: relative;
 }
 aside{
-    height: 100vh;
+    height: calc(100vh);
     max-width: 275px;
     width: 100%;
     box-shadow: rgba(38, 54, 77, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-
     padding: 30px 20px;
     border-right: 1px solid var(--border);
 
@@ -24,6 +25,9 @@ nav{
     display: flex;
     flex-direction: column;
     row-gap: 25px;
+}
+.logo-img{
+    max-width: 235px;
 }
 
 .active{
@@ -45,3 +49,68 @@ main{
 
 }
 
+.hamburger-container{
+   display: none;
+}
+
+.hamburger{
+    max-width: 45px;
+}
+
+.overlay{
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+
+    .overlay{
+        display: block;
+        position: absolute;
+        height: calc(100dvh - 64px);
+        width: 100%;
+        background: rgba(0, 0, 0, 0.2);
+        z-index: 9;
+        left: 0;
+        top: 45px
+    }
+
+    .container{
+        padding-top: 45px;
+    }
+    aside{
+        display: flex;
+        height: calc(100vh - 45px);
+        position: absolute;
+        top: 45px;
+        left: -300px;
+        transition: left 0.5s ease;
+        z-index: 10;
+        max-width: 275px;
+        width: 100%;
+        box-shadow: rgba(38, 54, 77, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        padding: 30px 20px;
+        border-right: 1px solid var(--border);
+        background-color: var(--bg-primary);
+    }
+
+    .open{
+        left: 0px;
+    }
+
+    .logo-img{
+        max-width: 200px;
+    }
+    .hamburger-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 99999;
+        background-color: var(--bg-primary);
+        max-height: 45px;
+        box-shadow: rgba(38, 54, 77, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        border-bottom: 1px solid var(--border);
+    }
+}

@@ -1,18 +1,25 @@
+<div class="hamburger-container">
+    <img class="hamburger" src="general/hamburger.svg" alt="hamburger" (click)="toggleNavbar()">
+</div>
 <div class="container">
-    <aside>
+
+    <aside [ngClass]="{'open':isOpen()}">
         <nav>
             <div class="nav-container">
-                 <img src="general/logo-main.png" alt="logo">
+                 <img src="general/logo-main.png" class="logo-img" alt="logo">
         
                 <ul>
-                    <li routerLink="/dashboard" routerLinkActive="active">Dashboard</li>
-                    <li routerLink="/transactions" routerLinkActive="active">Transactions</li>
+                    <li (click)="setNavbar(false)" routerLink="/dashboard" routerLinkActive="active">Dashboard</li>
+                    <li (click)="setNavbar(false)" routerLink="/transactions" routerLinkActive="active">Transactions</li>
 
                 </ul>
             </div>
             <button class="btn btn-primary" (click)="logOut()">Log out</button>
         </nav>
     </aside>
+    @if (isOpen()) {
+        <div (click)="setNavbar(false)" class="overlay"></div>
+    }
     <main>
         <router-outlet></router-outlet>
     </main>
