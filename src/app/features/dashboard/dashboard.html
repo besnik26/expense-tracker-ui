@@ -1,1 +1,18 @@
-<p>dashboard works!</p>
+@if (dashboardData(); as data) {
+      <h2>Total income: {{ data.totalIncome }}</h2>
+      <h2>Total expenses: {{ data.totalExpenses }}</h2>
+      <h2>Balance: {{ data.totalBalance }}</h2>
+      @if (data.recentTransactions?.length) {
+            @for (transaction of data.recentTransactions; track transaction._id) {
+            <div class="transaction-item">
+                <p>{{ transaction.description || 'No description' }}</p>
+                <p>{{ transaction.type }} - {{ transaction.amount }}</p>
+                <small>{{ transaction.date | date: 'mediumDate' }}</small>
+            </div>
+            }
+        } @else {
+            <p>No recent transactions</p>
+        }
+    } @else {
+      <p>Loading...</p>
+}
