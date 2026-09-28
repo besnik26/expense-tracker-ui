@@ -1,1 +1,58 @@
-<p>transactions works!</p>
+<form [formGroup]="transactionForm" (ngSubmit)="submit()">
+  <div>
+    <label>Type</label>
+    <select formControlName="type">
+      <option value="expense">Expense</option>
+      <option value="income">Income</option>
+    </select>
+  </div>
+
+  <div>
+    <label>Amount</label>
+    <input type="number" formControlName="amount" step="0.01" />
+  </div>
+
+  <div>
+    <label>Category</label>
+    <select formControlName="category">
+        @for (category of getCategoriesByType(transactionForm.get('type')?.value); track $index) {
+        <option
+                [value]="category"
+            >
+                {{ category }}
+            </option>
+        }
+      
+    </select>
+  </div>
+
+  <div>
+    <label>Date</label>
+    <input type="date" formControlName="date" />
+  </div>
+
+  <div>
+    <label>Description</label>
+    <input type="text" formControlName="description" />
+  </div>
+
+  <button type="submit" [disabled]="loading()">
+    {{ loading() ? 'Saving...' : 'Add Transaction' }}
+  </button>
+</form>
+
+@if (error()) {
+
+    <div>
+      {{ error() }}
+    </div>
+}
+
+<ul>
+    @for (item of transactions(); track $index) {
+        <li>
+          {{ item.type }} - {{ item.category }} - {{ item.amount }} - {{ item.date }}
+          <button type="button" (click)="deleteTransaction(item._id)">Delete</button>
+        </li>
+    }
+</ul>
