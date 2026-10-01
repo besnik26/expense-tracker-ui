@@ -1,18 +1,15 @@
-@if (dashboardData(); as data) {
-      <h2>Total income: {{ data.totalIncome }}</h2>
-      <h2>Total expenses: {{ data.totalExpenses }}</h2>
-      <h2>Balance: {{ data.totalBalance }}</h2>
-      @if (data.recentTransactions?.length) {
-            @for (transaction of data.recentTransactions; track transaction._id) {
-            <div class="transaction-item">
-                <p>{{ transaction.description || 'No description' }}</p>
-                <p>{{ transaction.type }} - {{ transaction.amount }}</p>
-                <small>{{ transaction.date | date: 'mediumDate' }}</small>
-            </div>
-            }
-        } @else {
-            <p>No recent transactions</p>
-        }
+<main class="dashboard-main">
+    @if (dashboardData(); as data) {
+
+        <div class="title">
+            <h3>Dashboard</h3>
+        </div>
+
+        <app-general-stats [data]="data"></app-general-stats>
+        <app-recent-transactions [data]="data"></app-recent-transactions>
+        
+        
     } @else {
-      <p>Loading...</p>
-}
+        <p>Loading...</p>
+    }
+</main>

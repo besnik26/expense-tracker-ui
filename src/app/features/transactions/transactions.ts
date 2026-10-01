@@ -1,145 +1,47 @@
-import { Component, signal, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, viewChild, ElementRef, signal, OnInit, OnDestroy } from '@angular/core';
 import { TransactionsService } from '../../core/services/transactions.service';
 import { Subscription } from 'rxjs';
-import { Transaction, TransactionType, CreateTransactionDto } from './interfaces/transactions.interface';
+import { Transaction,  } from './interfaces/transactions.interface';
+import { TransactionForm } from '../../shared/transaction-form/transaction-form';
 
 @Component({
-  imports: [ReactiveFormsModule],
+  imports: [TransactionForm],
   selector: 'app-transactions',
   styleUrl: './transactions.css',
   templateUrl: './transactions.html',
 })
-export class Transactions implements OnInit{
+export class Transactions implements OnInit, OnDestroy{
 
   private sub = new Subscription();
-
-  // state in signals
   transactions = signal<Transaction[]>([]);
-  loading = signal(false);
-  error = signal<string | null>(null);
+ 
+private readonly transactionDialog =
+  viewChild.required<ElementRef<HTMLDialogElement>>('transactionDialog');
 
-  // category options derived from type
-  readonly incomeCategories = [
-    'Salary',
-    'Freelance',
-    'Gift',
-    'Bonus',
-    'Investment',
-    'Other',
-  ] as const;
-
-  readonly expenseCategories = [
-    'Food',
-    'Transport',
-    'Shopping',
-    'Bills',
-    'Entertainment',
-    'Health',
-  ] as const;
-
-  transactionForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
     private transactionsService: TransactionsService
-  ) {
-    this.transactionForm = this.fb.group({
-      type: ['expense', Validators.required],
-      amount: [null, [Validators.required, Validators.min(0.01)]],
-      category: [null, Validators.required],
-      date: [this.todayString(), Validators.required],
-      description: [''],
-    });
-
-    this.listenToTypeChanges();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loadTransactions();
   }
 
-  private todayString(): string {
-    return new Date().toISOString().slice(0, 10);
-  }
-
-  private listenToTypeChanges(): void {
-    const typeControl = this.transactionForm.get('type');
-    if (!typeControl) return;
-
-    this.sub.add(
-      typeControl.valueChanges.subscribe((type: TransactionType) => {
-        const categories = this.getCategoriesByType(type);
-
-        const currentCategory = this.transactionForm.get('category')?.value;
-
-        if (!categories.includes(currentCategory)) {
-          this.transactionForm.patchValue({ category: categories[0] ?? null });
-        }
-      })
-    );
-  }
-
-  getCategoriesByType(type: TransactionType): readonly string[] {
-    return type === 'income' ? this.incomeCategories : this.expenseCategories;
-  }
-
   loadTransactions(): void {
-    this.loading.set(true);
-    this.error.set(null);
-
     this.sub.add(
       this.transactionsService.getTransactions({ page: 1, limit: 20 }).subscribe({
         next: (res) => {
           this.transactions.set(res.data.transactions ?? []);
-          this.loading.set(false);
         },
         error: (err) => {
-          this.error.set(err?.error?.message || 'Failed to load transactions');
-          this.loading.set(false);
+          alert(err?.error?.message || 'Failed to load transactions');
+          
         },
       })
     );
   }
 
-  submit(): void {
-    if (this.transactionForm.invalid) {
-      this.transactionForm.markAllAsTouched();
-      return;
-    }
-
-    const formValue = this.transactionForm.getRawValue();
-
-    const payload: CreateTransactionDto = {
-      type: formValue.type,
-      amount: Number(formValue.amount),
-      category: formValue.category,
-      date: formValue.date,
-      description: formValue.description || '',
-    };
-
-    this.loading.set(true);
-
-    this.sub.add(
-      this.transactionsService.createTransaction(payload).subscribe({
-        next: () => {
-          this.transactionForm.reset({
-            type: 'expense',
-            amount: null,
-            category: this.expenseCategories[0],
-            date: this.todayString(),
-            description: '',
-          });
-
-          this.loadTransactions();
-        },
-        error: (err) => {
-          this.error.set(err?.error?.message || 'Create failed');
-          this.loading.set(false);
-        },
-      })
-    );
-  }
+ 
 
   deleteTransaction(id: string): void {
     this.sub.add(
@@ -150,10 +52,29 @@ export class Transactions implements OnInit{
           );
         },
         error: (err) => {
-          this.error.set(err?.error?.message || 'Delete failed');
+          alert(err?.error?.message || 'Delete failed')
         },
       })
     );
+  }
+
+  openTransactionDialog(): void {
+  this.transactionDialog().nativeElement.showModal();
+  }
+
+  closeTransactionDialog(): void {
+    this.transactionDialog().nativeElement.close();
+  }
+
+  closeOnBackdrop(event: MouseEvent): void {
+    if (event.target === this.transactionDialog().nativeElement) {
+      this.closeTransactionDialog();
+    }
+  }
+
+  onTransactionCreated(): void {
+    this.closeTransactionDialog();
+    this.loadTransactions();
   }
 
   ngOnDestroy(): void {

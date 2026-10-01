@@ -2,10 +2,11 @@ import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { DashboardService } from '../../core/services/dashboard.service';
 import { Subject, takeUntil } from 'rxjs';
 import { DashboardSummary } from './interfaces/dashboardSummary.interface';
-import { DatePipe } from '@angular/common';
+import { GeneralStats } from './components/general-stats/general-stats';
+import { RecentTransactions } from './components/recent-transactions/recent-transactions';
 
 @Component({
-  imports: [DatePipe],
+  imports: [GeneralStats, RecentTransactions],
   selector: 'app-dashboard',
   styleUrl: './dashboard.css',
   templateUrl: './dashboard.html',

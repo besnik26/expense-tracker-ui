@@ -1,0 +1,41 @@
+.transactions-main{
+    min-height: 100%;
+    padding: 30px;
+    /* background-color: var(--db-primary); */
+}
+
+.form-container{
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+}
+
+
+.transaction-dialog {
+  width: min(34rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  margin: auto;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 35%);
+}
+
+.transaction-dialog::backdrop {
+  background: rgb(0 0 0 / 65%);
+}
+
+.transaction-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.transaction-dialog-header h2 {
+  font-size: 1.25rem;
+}

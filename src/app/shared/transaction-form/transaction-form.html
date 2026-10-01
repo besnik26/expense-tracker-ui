@@ -1,0 +1,42 @@
+<form class="form-container" [formGroup]="transactionForm" (ngSubmit)="submit()">
+    <div class="form-field-div">
+      <label>Type</label>
+      <select formControlName="type">
+        <option value="expense">Expense</option>
+        <option value="income">Income</option>
+      </select>
+    </div>
+  
+    <div class="form-field-div">
+      <label>Amount</label>
+      <input type="number" formControlName="amount" step="0.01" />
+    </div>
+  
+    <div class="form-field-div">
+      <label>Category</label>
+      <select formControlName="category">
+          @for (category of getCategoriesByType(transactionForm.get('type')?.value); track $index) {
+          <option
+                  [value]="category"
+              >
+                  {{ category }}
+              </option>
+          }
+        
+      </select>
+    </div>
+  
+    <div class="form-field-div">
+      <label>Date</label>
+      <input type="date" formControlName="date" />
+    </div>
+  
+    <div class="form-field-div">
+      <label>Description</label>
+      <input type="text" formControlName="description" />
+    </div>
+  
+    <button class="btn btn-primary" type="submit" [disabled]="loading()">
+      {{ loading() ? 'Saving...' : 'Add Transaction' }}
+    </button>
+  </form>

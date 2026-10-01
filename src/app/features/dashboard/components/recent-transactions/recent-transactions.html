@@ -1,0 +1,30 @@
+
+<h4 class="title">Recent Transactions</h4>
+<div class="table-scroll">
+  <table class="transactions-table">
+    <thead>
+      <tr>
+        <th scope="col">Transaction</th>
+        <th scope="col">Type</th>
+        <th scope="col">Date</th>
+        <th class="amount-heading" scope="col">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      @if (data().recentTransactions?.length) {
+        @for (transaction of data().recentTransactions; track transaction._id) {
+          <tr>
+            <td class="description">{{ transaction.description || 'No description' }}</td>
+            <td><span class="type-badge">{{ transaction.type }}</span></td>
+            <td class="date">{{ transaction.date | date: 'mediumDate' }}</td>
+            <td class="amount">{{ transaction.amount }}€</td>
+          </tr>
+        }
+      } @else {
+        <tr>
+          <td class="empty-state" colspan="4">No recent transactions</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

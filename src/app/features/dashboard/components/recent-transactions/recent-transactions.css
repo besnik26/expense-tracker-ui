@@ -1,0 +1,92 @@
+.title{
+    margin-bottom: 30px;
+        color: var(--navy-light);
+
+}
+
+.table-scroll {
+	width: 100%;
+	overflow-x: auto;
+	border: 1px solid var(--border-light);
+	border-radius: var(--radius-md);
+	background: var(--db-secondary);
+}
+
+.transactions-table {
+	width: 100%;
+	min-width: 560px;
+	border-collapse: collapse;
+	text-align: left;
+}
+
+.transactions-table th,
+.transactions-table td {
+	padding: 15px 20px;
+}
+
+.transactions-table th {
+	background: var(--db-tertiary);
+	color: var(--navy-light);
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.transactions-table td {
+	border-top: 1px solid var(--border-light);
+	color: var(--navy-light);
+	font-size: 0.9rem;
+}
+
+.transactions-table tbody tr {
+	transition: background-color 140ms ease;
+}
+
+.transactions-table tbody tr:hover {
+	background: #faf9f6;
+}
+
+.transactions-table .description {
+	font-weight: 600;
+}
+
+.transactions-table .date {
+	color: var(--text-muted);
+	white-space: nowrap;
+}
+
+.type-badge {
+	display: inline-block;
+	padding: 3px 9px;
+	border: 1px solid var(--border-light);
+	border-radius: var(--radius-sm);
+	color: var(--navy-light);
+	font-size: 0.78rem;
+	line-height: 1.5;
+	text-transform: capitalize;
+}
+
+.amount-heading,
+.amount {
+	text-align: right;
+	white-space: nowrap;
+}
+
+.amount {
+	font-variant-numeric: tabular-nums;
+	font-weight: 600;
+}
+
+.transactions-table .empty-state {
+	padding: 32px 20px;
+	color: var(--text-muted);
+	text-align: center;
+}
+
+@media (max-width: 600px) {
+	.transactions-table th,
+	.transactions-table td {
+		padding: 13px 14px;
+	}
+}

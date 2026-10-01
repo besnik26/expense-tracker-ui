@@ -15,13 +15,27 @@
   --gold-light: #E5C875;
   --gold-dark: #B8953F;
 
+   /* Background */
+  --db-primary: #F5F3EE;
+  --db-secondary: #FFFFFF;
+  --db-tertiary: #EEECE6;
+
+
+  /* Navy */
+  --navy: #17243A;
+  --navy-light: #26364D;
+  --navy-dark: #0B1220;
+
+
   /* Text */
   --text-primary: #F1F5F9;
   --text-secondary: #B8C2D1;
   --text-muted: #7F8B9D;
 
   /* Borders */
+  --border-light: #E5E7EB;
   --border: #26364D;
+
 
   /* Status */
   --success: #4ADE80;
