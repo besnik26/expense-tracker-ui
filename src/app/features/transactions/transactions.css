@@ -1,7 +1,20 @@
 .transactions-main{
     min-height: 100%;
     padding: 30px;
-    /* background-color: var(--db-primary); */
+    background-color: var(--db-primary);
+}
+
+.transactions-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 24px;
+}
+
+.title {
+  margin: 0;
+  color: var(--navy-light);
 }
 
 .form-container{
@@ -38,4 +51,15 @@
 
 .transaction-dialog-header h2 {
   font-size: 1.25rem;
+}
+
+@media (max-width: 600px) {
+  .transactions-main {
+    padding: 20px 16px;
+  }
+
+  .transactions-header {
+    align-items: flex-start;
+  }
+
 }

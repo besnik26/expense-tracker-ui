@@ -1,10 +1,13 @@
-<main class="transactions-main">
-  <button
-    class="btn btn-primary"
-    type="button"
-    (click)="openTransactionDialog()">
-    Add transaction
-  </button>
+<main class="transactions-main" [attr.aria-busy]="loading()">
+  <header class="transactions-header">
+    <h3 class="title">Transactions</h3>
+    <button
+      class="btn btn-primary"
+      type="button"
+      (click)="openTransactionDialog()">
+      Add transaction
+    </button>
+  </header>
 
   <dialog
     #transactionDialog
@@ -26,14 +29,20 @@
       (transactionCreated)="onTransactionCreated()">
     </app-transaction-form>
   </dialog>
-  
-  <ul>
-      @for (item of transactions(); track $index) {
-          <li>
-            {{ item.type }} - {{ item.category }} - {{ item.amount }} - {{ item.date }}
-            <button type="button" (click)="deleteTransaction(item._id)">Delete</button>
-          </li>
-      }
-  </ul>
+
+  <app-transactions-table
+    [transactions]="transactions()"
+    [pagination]="pagination()"
+    [month]="month()"
+    [category]="category()"
+    [type]="type()"
+    [categories]="categories"
+    [loading]="loading()"
+    [errorMessage]="errorMessage()"
+    (filtersChanged)="onFiltersChanged($event)"
+    (pageChanged)="goToPage($event)"
+    (deleteRequested)="deleteTransaction($event)"
+    (retryRequested)="loadTransactions()">
+  </app-transactions-table>
 
 </main>

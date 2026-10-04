@@ -1,16 +1,21 @@
 import { Component, signal,output, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TransactionsService } from '../../core/services/transactions.service';
 import { Subscription } from 'rxjs';
-import { TransactionType, CreateTransactionDto } from '../../features/transactions/interfaces/transactions.interface';
+import { 
+  TransactionType,
+  CreateTransactionDto,
+  INCOME_CATEGORIES,
+  EXPENSE_CATEGORIES,
 
+ } from '../../interfaces/transactions.interface';
+import { TransactionsService } from '../../../../core/services/transactions.service';
 @Component({
   imports: [ReactiveFormsModule],
   selector: 'app-transaction-form',
   styleUrl: './transaction-form.css',
   templateUrl: './transaction-form.html',
 })
-export class TransactionForm implements  OnDestroy{
+export class TransactionForm implements OnDestroy{
     private sub = new Subscription();
     loading = signal(false);
     error = signal<string | null>(null);
@@ -19,23 +24,8 @@ export class TransactionForm implements  OnDestroy{
 
 
     // category options derived from type
-    readonly incomeCategories = [
-      'Salary',
-      'Freelance',
-      'Gift',
-      'Bonus',
-      'Investment',
-      'Other',
-    ] as const;
-
-    readonly expenseCategories = [
-      'Food',
-      'Transport',
-      'Shopping',
-      'Bills',
-      'Entertainment',
-      'Health',
-    ] as const;
+    readonly incomeCategories = INCOME_CATEGORIES;
+    readonly expenseCategories = EXPENSE_CATEGORIES;
 
     transactionForm: FormGroup;
 

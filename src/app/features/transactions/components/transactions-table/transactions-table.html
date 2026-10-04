@@ -1,0 +1,120 @@
+<section class="transactions-table-content" [attr.aria-busy]="loading()">
+  <section class="transaction-filters" aria-label="Filter transactions">
+    <div class="filter-field">
+      <label for="transaction-month">Month</label>
+      <input
+        id="transaction-month"
+        type="month"
+        [value]="month()"
+        (change)="onMonthChange($event)">
+    </div>
+
+    <div class="filter-field">
+      <label for="transaction-category">Category</label>
+      <select
+        id="transaction-category"
+        [value]="category()"
+        (change)="onCategoryChange($event)">
+        <option value="">All</option>
+        @for (categoryOption of categories(); track categoryOption) {
+          <option [value]="categoryOption">{{ categoryOption }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="filter-field">
+      <label for="transaction-type">Type</label>
+      <select
+        id="transaction-type"
+        [value]="type()"
+        (change)="onTypeChange($event)">
+        <option value="">All</option>
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+      </select>
+    </div>
+
+    <button
+      class="btn btn-secondary clear-filters"
+      type="button"
+      [disabled]="!hasActiveFilters()"
+      (click)="clearFilters()">
+      Clear filters
+    </button>
+  </section>
+
+  @if (loading()) {
+    <p class="transactions-status" role="status">Loading transactions...</p>
+  } @else if (errorMessage(); as error) {
+    <div class="transactions-error" role="alert">
+      <p>{{ error }}</p>
+      <button class="btn btn-secondary" type="button" (click)="retryRequested.emit()">
+        Try again
+      </button>
+    </div>
+  } @else {
+    @if (pagination(); as pageInfo) {
+      <nav class="pagination" aria-label="Transaction pages">
+        <button
+          class="btn btn-secondary"
+          type="button"
+          [disabled]="pageInfo.currentPage <= 1"
+          (click)="pageChanged.emit(pageInfo.currentPage - 1)">
+          Previous
+        </button>
+
+        <span>Page {{ pageInfo.currentPage }} of {{ pageInfo.totalPages }}</span>
+
+        <button
+          class="btn btn-secondary"
+          type="button"
+          [disabled]="pageInfo.currentPage >= pageInfo.totalPages"
+          (click)="pageChanged.emit(pageInfo.currentPage + 1)">
+          Next
+        </button>
+      </nav>
+    }
+
+    <div class="table-scroll">
+      <table class="transactions-table">
+        <thead>
+          <tr>
+            <th scope="col">Transaction</th>
+            <th scope="col">Category</th>
+            <th scope="col">Type</th>
+            <th scope="col">Date</th>
+            <th class="amount-heading" scope="col">Amount</th>
+            <th class="action-heading" scope="col"><span class="visually-hidden">Actions</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (transactions().length) {
+            @for (item of transactions(); track item._id) {
+              <tr>
+                <td class="description">{{ item.description || 'No description' }}</td>
+                <td>{{ item.category }}</td>
+                <td><span class="type-badge">{{ item.type }}</span></td>
+                <td class="date">{{ item.date | date: 'mediumDate' }}</td>
+                <td class="amount">{{ item.amount }}€</td>
+                <td class="action-cell">
+                  <button
+                    class="delete-button"
+                    type="button"
+                    (click)="deleteRequested.emit(item._id)">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            }
+          } @else {
+            <tr>
+              <td class="empty-state" colspan="6">
+                {{ hasActiveFilters() ? 'No transactions match these filters.' : 'No transactions yet.' }}
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

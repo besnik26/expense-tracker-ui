@@ -1,20 +1,25 @@
 export type TransactionType = 'income' | 'expense';
 
-export type IncomeCategory =
-  | 'Salary'
-  | 'Freelance'
-  | 'Gift'
-  | 'Bonus'
-  | 'Investment'
-  | 'Other';
+export const INCOME_CATEGORIES = [
+  'Salary',
+  'Freelance',
+  'Gift',
+  'Bonus',
+  'Investment',
+  'Other',
+] as const;
 
-export type ExpenseCategory =
-  | 'Food'
-  | 'Transport'
-  | 'Shopping'
-  | 'Bills'
-  | 'Entertainment'
-  | 'Health';
+export const EXPENSE_CATEGORIES = [
+  'Food',
+  'Transport',
+  'Shopping',
+  'Bills',
+  'Entertainment',
+  'Health',
+] as const;
+
+export type IncomeCategory = (typeof INCOME_CATEGORIES)[number];
+export type ExpenseCategory = (typeof EXPENSE_CATEGORIES)[number];
 
 export type TransactionCategory = IncomeCategory | ExpenseCategory;
 
