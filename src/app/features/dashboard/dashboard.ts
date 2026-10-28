@@ -5,6 +5,7 @@ import { DashboardSummary } from './interfaces/dashboardSummary.interface';
 import { GeneralStats } from './components/general-stats/general-stats';
 import { RecentTransactions } from './components/recent-transactions/recent-transactions';
 
+
 @Component({
   imports: [GeneralStats, RecentTransactions],
   selector: 'app-dashboard',
@@ -14,6 +15,9 @@ import { RecentTransactions } from './components/recent-transactions/recent-tran
 export class Dashboard implements OnInit, OnDestroy{
   dashboardData = signal<DashboardSummary | null>(null);
   private destroy$ = new Subject<void>();
+  now = new Date();
+  fullMonth = this.now.toLocaleString('default',{month:'long'})
+
 
   constructor(private dashboardService:DashboardService){}
 

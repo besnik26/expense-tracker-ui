@@ -27,8 +27,9 @@
 .clear-filters {
   min-height: 44px;
   white-space: nowrap;
-  color: var(--navy-light);
+  color: white;
   border-color: var(--border-light);
+  background-color: var(--danger);
 }
 
 .clear-filters:disabled {

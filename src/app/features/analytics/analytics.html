@@ -1,0 +1,16 @@
+<main class="analytics-main">
+    @if (analyticsData(); as data) {
+
+        <div class="title">
+            <h3>Analytics</h3>
+        </div>
+
+
+        <app-total-stats [data]="data"></app-total-stats>
+        
+        
+        
+    } @else {
+        <p>Loading...</p>
+    }
+</main>

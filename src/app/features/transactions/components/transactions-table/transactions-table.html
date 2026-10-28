@@ -1,4 +1,4 @@
-<section class="transactions-table-content" [attr.aria-busy]="loading()">
+<section [attr.aria-busy]="loading()">
   <section class="transaction-filters" aria-label="Filter transactions">
     <div class="filter-field">
       <label for="transaction-month">Month</label>
@@ -56,7 +56,7 @@
     @if (pagination(); as pageInfo) {
       <nav class="pagination" aria-label="Transaction pages">
         <button
-          class="btn btn-secondary"
+          class="btn btn-primary"
           type="button"
           [disabled]="pageInfo.currentPage <= 1"
           (click)="pageChanged.emit(pageInfo.currentPage - 1)">
@@ -66,7 +66,7 @@
         <span>Page {{ pageInfo.currentPage }} of {{ pageInfo.totalPages }}</span>
 
         <button
-          class="btn btn-secondary"
+          class="btn btn-primary"
           type="button"
           [disabled]="pageInfo.currentPage >= pageInfo.totalPages"
           (click)="pageChanged.emit(pageInfo.currentPage + 1)">

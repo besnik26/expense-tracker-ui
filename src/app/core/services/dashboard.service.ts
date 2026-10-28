@@ -10,8 +10,6 @@ export class DashboardService {
   private http = inject(HttpClient);
 
   getDashboard():Observable<DashboardResponse>{
-    return this.http.get<DashboardResponse>(
-        `${environment.apiUrl}/api/dashboard`
-    )
+    return this.http.get<DashboardResponse>(`${environment.apiUrl}/api/dashboard`)
   }
 }
