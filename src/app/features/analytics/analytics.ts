@@ -3,9 +3,10 @@ import { AnalyticsService } from '../../core/services/analytics.service';
 import { takeUntil, Subject } from 'rxjs';
 import { AnalyticsSummary } from './interfaces/analyticsSummary.interface';
 import { TotalStats } from './components/total-stats/total-stats';
+import { MonthlyExpenses } from './components/monthly-expenses/monthly-expenses';
 
 @Component({
-  imports: [TotalStats],
+  imports: [TotalStats, MonthlyExpenses],
   selector: 'app-analytics',
   styleUrl: './analytics.css',
   templateUrl: './analytics.html',
