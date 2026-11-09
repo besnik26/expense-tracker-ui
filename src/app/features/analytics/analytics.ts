@@ -4,9 +4,10 @@ import { takeUntil, Subject } from 'rxjs';
 import { AnalyticsSummary } from './interfaces/analyticsSummary.interface';
 import { TotalStats } from './components/total-stats/total-stats';
 import { MonthlyExpenses } from './components/monthly-expenses/monthly-expenses';
+import { ExpenseBreakdown } from './components/expense-breakdown/expense-breakdown';
 
 @Component({
-  imports: [TotalStats, MonthlyExpenses],
+  imports: [TotalStats, MonthlyExpenses, ExpenseBreakdown],
   selector: 'app-analytics',
   styleUrl: './analytics.css',
   templateUrl: './analytics.html',

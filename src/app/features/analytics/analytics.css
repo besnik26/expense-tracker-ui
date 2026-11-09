@@ -2,14 +2,13 @@
     min-height: 100%;
     padding: 30px;
     background-color: var(--db-primary);
-
 }
 
 
 .title{
     width: 100%;
     margin-bottom: 20px;
-}
+} 
 
 h3,h4{
     color: var(--navy-light);

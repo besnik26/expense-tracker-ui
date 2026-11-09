@@ -1,0 +1,10 @@
+<h3>Expense Breakdown past 6 months</h3>
+
+<div class="chart-container">
+  <canvas
+    baseChart
+    [type]="'pie'"
+    [data]="pieChartData()"
+    [options]="pieChartOptions"
+  ></canvas>
+</div>

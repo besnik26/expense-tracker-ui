@@ -1,3 +1,4 @@
+import { ExpenseBreakdown } from "./expenseBreakdown.inteface";
 import { MonthlyAnalytics } from "./monthlyAnalytics.interface";
 
 export interface AnalyticsSummary{
@@ -5,4 +6,5 @@ export interface AnalyticsSummary{
     totalExpenses:number;
     totalBalance:number;
     monthlyAnalytics: MonthlyAnalytics[];
+    expenseBreakdownAnalytics: ExpenseBreakdown[];
 }
