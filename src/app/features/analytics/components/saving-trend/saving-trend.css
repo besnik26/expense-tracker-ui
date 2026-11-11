@@ -1,0 +1,11 @@
+
+.chart-container {
+  position: relative;
+  height: 300px;
+  width: 100%;
+}
+
+h3{
+    color: var(--navy-light);
+    margin-bottom: 10px;
+}

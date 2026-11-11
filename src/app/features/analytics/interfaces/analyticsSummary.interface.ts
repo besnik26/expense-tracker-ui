@@ -1,3 +1,4 @@
+import { SavingTrend } from "./savingTrend.interface";
 import { ExpenseBreakdown } from "./expenseBreakdown.inteface";
 import { MonthlyAnalytics } from "./monthlyAnalytics.interface";
 
@@ -7,4 +8,6 @@ export interface AnalyticsSummary{
     totalBalance:number;
     monthlyAnalytics: MonthlyAnalytics[];
     expenseBreakdownAnalytics: ExpenseBreakdown[];
+    savingTrendAnalytics: SavingTrend[];
+
 }

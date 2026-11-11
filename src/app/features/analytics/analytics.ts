@@ -5,9 +5,10 @@ import { AnalyticsSummary } from './interfaces/analyticsSummary.interface';
 import { TotalStats } from './components/total-stats/total-stats';
 import { MonthlyExpenses } from './components/monthly-expenses/monthly-expenses';
 import { ExpenseBreakdown } from './components/expense-breakdown/expense-breakdown';
+import { SavingTrend } from './components/saving-trend/saving-trend';
 
 @Component({
-  imports: [TotalStats, MonthlyExpenses, ExpenseBreakdown],
+  imports: [TotalStats, MonthlyExpenses, ExpenseBreakdown, SavingTrend],
   selector: 'app-analytics',
   styleUrl: './analytics.css',
   templateUrl: './analytics.html',
