@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -9,8 +9,13 @@ import { AnalyticsResponse } from '../../features/analytics/interfaces/analytics
 export class AnalyticsService {
   private http = inject(HttpClient);
 
-  getAnalytics():Observable<AnalyticsResponse>{
-    return this.http.get<AnalyticsResponse>(`${environment.apiUrl}/api/analytics`)
+  getAnalytics(months: number): Observable<AnalyticsResponse> {
+    const params = new HttpParams().set('months', months);
+
+    return this.http.get<AnalyticsResponse>(
+      `${environment.apiUrl}/api/analytics`,
+      { params }
+    );
   }
   
 

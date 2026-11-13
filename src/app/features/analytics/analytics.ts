@@ -15,6 +15,7 @@ import { SavingTrend } from './components/saving-trend/saving-trend';
 })
 export class Analytics implements OnInit, OnDestroy{
   analyticsData = signal<AnalyticsSummary | null>(null);
+  selectedMonths = signal<number>(6);
   private destroy$ = new Subject<void>();
   
 
@@ -32,7 +33,7 @@ export class Analytics implements OnInit, OnDestroy{
 
 
   getAnalytics():void{
-    this.analyticsService.getAnalytics()
+    this.analyticsService.getAnalytics((this.selectedMonths()))
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next:(response)=>{
@@ -42,6 +43,11 @@ export class Analytics implements OnInit, OnDestroy{
         console.error('Failed to get Analytics data:', err);
       }
     })
+  }
+
+  onPeriodChange(months:number){
+    this.selectedMonths.set(months);
+    this.getAnalytics();
   }
 
 }

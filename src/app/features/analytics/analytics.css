@@ -14,6 +14,25 @@ h3,h4{
     color: var(--navy-light);
 }
 
+.analytics-period {
+  display: flex;
+  gap: 8px;
+
+  button {
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: transparent;
+    cursor: pointer;
+
+    &.active {
+      background: #0b1220;
+      color: white;
+      border-color: #0b1220;
+    }
+  }
+}
+
 @media (max-width: 800px) {
     .analytics-main{
         padding: 16px;
