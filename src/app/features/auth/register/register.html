@@ -1,4 +1,14 @@
-<div >
+<div class="register-container">
+
+    <ngx-spinner
+        name="register"
+        [fullScreen]="false"
+        type="ball-spin"
+        size="medium"
+        color="#D4AF5A"
+        bdColor="rgba(0, 0, 0, 0.05)"
+      />
+    @if (!isLoading) {
       <h2>Register</h2>
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form-container">
 
@@ -31,6 +41,6 @@
         </div>
   
       </form>
-      
+    }
       
 </div>

@@ -9,6 +9,8 @@ import {
 
  } from '../../interfaces/transactions.interface';
 import { TransactionsService } from '../../../../core/services/transactions.service';
+import { toast } from 'ngx-sonner';
+
 @Component({
   imports: [ReactiveFormsModule],
   selector: 'app-transaction-form',
@@ -103,12 +105,14 @@ export class TransactionForm implements OnDestroy{
                 this.loading.set(false);
                 this.error.set(null);
                 this.transactionCreated.emit();
+                toast.success('Successfully created transaction!')
 
 
               },
               error: (err) => {
                 this.error.set(err?.error?.message || 'Create failed');
                 this.loading.set(false);
+                toast.error('Failed to create Transaction!');
               },
             })
           );

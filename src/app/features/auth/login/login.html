@@ -1,4 +1,15 @@
-<div >
+<div class="login-container" >
+
+    <ngx-spinner
+      name="login"
+      [fullScreen]="false"
+      type="ball-spin"
+      size="medium"
+      color="#D4AF5A"
+      bdColor="rgba(0, 0, 0, 0.05)"
+    />
+    @if (!isLoading) {
+
       <h2>Log in</h2>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-container">
         <div class="form-field-div">
@@ -19,9 +30,10 @@
 
         
       <div class="btn-container">
-        <button class="btn btn-primary" type="submit">Log in</button>
+        <button class="btn btn-primary" type="submit" [disabled]="isLoading">Log in</button>
       </div>
   
       </form>
+    }
       
 </div>
