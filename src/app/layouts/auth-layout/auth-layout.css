@@ -43,3 +43,17 @@ nav img{
     /* box-shadow: rgba(38, 54, 77, 0.2) 0px 7px 29px 0px; */
     box-shadow: rgba(38, 54, 77, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
+
+@media only screen and (max-width: 800px) {
+    nav{
+        padding:15px 16px 30px 16px;
+        margin-bottom: 40px;
+    }
+
+    main{
+        padding: 0px 16px;
+    }
+    .form-container{
+        padding: 16px;
+    }
+}
