@@ -93,7 +93,13 @@
               <tr>
                 <td class="description">{{ item.description || 'No description' }}</td>
                 <td>{{ item.category }}</td>
-                <td><span class="type-badge">{{ item.type }}</span></td>
+                <td>
+                  @if (item.type === 'expense') {
+                    <span class="type-badge expense">{{ item.type }}</span>
+                  }@else {
+                    <span class="type-badge income">{{ item.type }}</span>
+                  }
+                </td>
                 <td class="date">{{ item.date | date: 'mediumDate' }}</td>
                 <td class="amount">{{ item.amount }}€</td>
                 <td class="action-cell">

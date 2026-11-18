@@ -59,12 +59,24 @@
 .type-badge {
 	display: inline-block;
 	padding: 3px 9px;
-	border: 1px solid var(--border-light);
+	/* border: 1px solid var(--border-light); */
 	border-radius: var(--radius-sm);
-	color: var(--navy-light);
 	font-size: 0.78rem;
 	line-height: 1.5;
 	text-transform: capitalize;
+}
+
+
+.expense{
+	border: 1px solid var(--danger);
+	background-color: rgba(248, 113, 113, 0.03);
+	color: var(--danger);
+}
+
+.income{
+	background-color: rgba(74, 222, 128, 0.03);
+	border: 1px solid var(--success);
+	color: var(--success);
 }
 
 .amount-heading,

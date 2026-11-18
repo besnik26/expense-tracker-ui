@@ -15,7 +15,13 @@
         @for (transaction of data().recentTransactions; track transaction._id) {
           <tr>
             <td class="description">{{ transaction.description || 'No description' }}</td>
-            <td><span class="type-badge">{{ transaction.type }}</span></td>
+            <td>
+              @if (transaction.type === 'expense') {
+                <span class="type-badge expense">{{ transaction.type }}</span>
+              }@else {
+                <span class="type-badge income">{{ transaction.type }}</span>
+              }
+            </td>
             <td class="date">{{ transaction.date | date: 'mediumDate' }}</td>
             <td class="amount">{{ transaction.amount }}€</td>
           </tr>

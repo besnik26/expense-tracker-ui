@@ -17,6 +17,7 @@ h3,h4{
 .analytics-period {
   display: flex;
   gap: 8px;
+  margin-bottom: 16px;
 
   button {
     padding: 8px 16px;
@@ -35,6 +36,6 @@ h3,h4{
 
 @media (max-width: 800px) {
     .analytics-main{
-        padding: 16px;
+        padding: 20px 16px;
     }
 }
