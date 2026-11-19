@@ -1,15 +1,14 @@
 .container{
     display: flex;
     flex-direction: row;
-    height: 100vh;
     height: 100dvh;
     position: relative;
-    padding-top: 0px;
     overflow: hidden;
+    max-height: 100dvh;
 
 }
 aside{
-    height: calc(100vh);
+    height: calc(100dvh);
     max-width: 275px;
     width: 100%;
     box-shadow: rgba(38, 54, 77, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
@@ -97,12 +96,12 @@ main{
         top: 45px
     }
 
-    .container{
+    main{
         padding-top: 45px;
     }
     aside{
         display: flex;
-        height: calc(100vh - 45px);
+        height: calc(100dvh - 45px);
         position: absolute;
         top: 45px;
         left: -300px;

@@ -64,11 +64,13 @@
 
 html {
   scroll-behavior: smooth;
+  overflow: hidden;
 }
 
 body {
-  min-height: 100vh;
-
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
   background-color: var(--bg-primary);
   color: var(--text-primary);
 
