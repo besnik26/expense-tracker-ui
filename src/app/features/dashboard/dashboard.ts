@@ -4,10 +4,11 @@ import { Subject, takeUntil } from 'rxjs';
 import { DashboardSummary } from './interfaces/dashboardSummary.interface';
 import { GeneralStats } from './components/general-stats/general-stats';
 import { RecentTransactions } from './components/recent-transactions/recent-transactions';
+import { SpendingProgress } from './components/spending-progress/spending-progress';
 
 
 @Component({
-  imports: [GeneralStats, RecentTransactions],
+  imports: [GeneralStats, RecentTransactions, SpendingProgress],
   selector: 'app-dashboard',
   styleUrl: './dashboard.css',
   templateUrl: './dashboard.html',

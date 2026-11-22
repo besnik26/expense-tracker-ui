@@ -1,0 +1,18 @@
+<div class="spending-progress">
+  <div class="progress-header">
+    <h4>Monthly spending progress</h4>
+    <h3 class="percentage">{{ spendingPercentage() }}%</h3>
+  </div>
+
+  <div class="progress-track">
+    <div
+      class="progress-fill"
+      [style.width.%]="visualPercentage()"
+    ></div>
+  </div>
+
+  <div class="progress-footer">
+    <span>{{ data().totalExpenses | currency:'EUR':'symbol':'1.2-2':'de-DE' }}</span>
+    <span>{{ remainingIncome() | currency:'EUR':'symbol':'1.2-2':'de-DE' }} remaining</span>
+  </div>
+</div>
