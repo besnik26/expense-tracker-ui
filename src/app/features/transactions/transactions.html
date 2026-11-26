@@ -4,7 +4,7 @@
     <button
       class="btn btn-primary"
       type="button"
-      (click)="openTransactionDialog()">
+      (click)="openAddDialog()">
       Add transaction
     </button>
   </header>
@@ -16,7 +16,9 @@
     (click)="closeOnBackdrop($event)">
 
     <header class="transaction-dialog-header">
-      <h2 id="transaction-dialog-title">Add transaction</h2>
+      <h2 id="transaction-dialog-title">
+        {{ mode() === 'add' ? 'Add transaction' : 'Edit transaction' }}  
+      </h2>
       <button
         class="btn btn-secondary"
         type="button"
@@ -26,11 +28,14 @@
     </header>
 
     <app-transaction-form
-      (transactionCreated)="onTransactionCreated()">
+    [mode]="mode()"
+    [transaction]="selectedTransaction()"
+    (transactionSaved)="onTransactionSaved()">    
     </app-transaction-form>
   </dialog>
 
   <app-transactions-table
+    (editRequested)="openEditDialog($event)"
     [transactions]="transactions()"
     [pagination]="pagination()"
     [month]="month()"

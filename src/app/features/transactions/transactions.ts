@@ -22,6 +22,8 @@ import {
 })
 export class Transactions implements OnInit, OnDestroy{
 
+  mode = signal<'add' | 'edit'>('add');
+  selectedTransaction = signal<Transaction | null>(null)
   private sub = new Subscription();
   private loadSub: Subscription | null = null;
   transactions = signal<Transaction[]>([]);
@@ -78,6 +80,10 @@ export class Transactions implements OnInit, OnDestroy{
   }
 
   deleteTransaction(id: string): void {
+
+    if (!window.confirm('Are you sure you want to delete this transaction?')) {
+      return;
+    }
     this.sub.add(
       this.transactionsService.deleteTransaction(id).subscribe({
         next: () => {
@@ -110,9 +116,22 @@ export class Transactions implements OnInit, OnDestroy{
     this.loadTransactions();
   }
 
-  openTransactionDialog(): void {
+  openAddDialog(): void {
+    this.mode.set('add');
+    this.selectedTransaction.set(null);
     this.transactionDialog().nativeElement.showModal();
   }
+
+  openEditDialog(transaction: Transaction): void {
+    this.mode.set('edit');
+    this.selectedTransaction.set(transaction);
+    this.transactionDialog().nativeElement.showModal();
+  }
+
+
+  // openTransactionDialog(): void {
+  //   this.transactionDialog().nativeElement.showModal();
+  // }
 
   closeTransactionDialog(): void {
     this.transactionDialog().nativeElement.close();
@@ -124,7 +143,7 @@ export class Transactions implements OnInit, OnDestroy{
     }
   }
 
-  onTransactionCreated(): void {
+  onTransactionSaved(): void {
     this.closeTransactionDialog();
     this.loadTransactions();
   }

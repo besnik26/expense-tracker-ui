@@ -1,4 +1,4 @@
-import { Component, signal,output, OnDestroy } from '@angular/core';
+import { Component, signal,output, input, effect, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { 
@@ -6,6 +6,7 @@ import {
   CreateTransactionDto,
   INCOME_CATEGORIES,
   EXPENSE_CATEGORIES,
+  Transaction
 
  } from '../../interfaces/transactions.interface';
 import { TransactionsService } from '../../../../core/services/transactions.service';
@@ -22,7 +23,11 @@ export class TransactionForm implements OnDestroy{
     loading = signal(false);
     error = signal<string | null>(null);
 
-    transactionCreated = output<void>();
+
+    readonly mode = input<'add' | 'edit'>('add');
+    readonly transaction = input<Transaction | null>(null);
+
+    transactionSaved = output<void>();
 
 
     // category options derived from type
@@ -45,6 +50,33 @@ export class TransactionForm implements OnDestroy{
       });
 
       this.listenToTypeChanges();
+
+      effect(() => {
+        const mode = this.mode();
+        const transaction = this.transaction();
+
+        if (mode === 'edit' && transaction) {
+          this.transactionForm.patchValue({
+            type: transaction.type,
+            amount: transaction.amount,
+            category: transaction.category,
+            date: transaction.date.slice(0, 10),
+            description: transaction.description
+          });
+        } else {
+          this.resetForm();
+        }
+      });
+    }
+
+    private resetForm(): void {
+      this.transactionForm.reset({
+        type: 'expense',
+        amount: null,
+        category: this.expenseCategories[0],
+        date: this.todayString(),
+        description: ''
+      });
     }
 
 
@@ -91,30 +123,67 @@ export class TransactionForm implements OnDestroy{
           };
       
           this.loading.set(true);
-      
+
+          const request$ = this.mode() === 'add'
+          ? this.transactionsService.createTransaction(payload)
+          : this.transactionsService.updateTransaction(
+              this.transaction()!._id,
+              payload
+            );
+            
           this.sub.add(
-            this.transactionsService.createTransaction(payload).subscribe({
-              next: () => {
-                this.transactionForm.reset({
-                  type: 'expense',
-                  amount: null,
-                  category: this.expenseCategories[0],
-                  date: this.todayString(),
-                  description: '',
-                });
+
+
+
+            request$.subscribe({
+              next: ()=>{
                 this.loading.set(false);
                 this.error.set(null);
-                this.transactionCreated.emit();
-                toast.success('Successfully created transaction!')
 
-
+                if(this.mode() === 'add'){
+                  this.resetForm();
+                  toast.success('Successfully created transaction!');
+                }else{
+                  toast.success('Successfully updated transaction!');
+                }
+                this.transactionSaved.emit();
               },
-              error: (err) => {
-                this.error.set(err?.error?.message || 'Create failed');
-                this.loading.set(false);
-                toast.error('Failed to create Transaction!');
-              },
+              error:(err)=>{
+                this.error.set(err?.error?.message || 'Save failed');
+                this.loading.set(false);      
+                
+                toast.error(
+                  this.mode() === 'add'
+                    ? 'Failed to create transaction!'
+                    : 'Failed to update transaction!'
+                );
+              }
             })
+
+
+
+            // this.transactionsService.createTransaction(payload).subscribe({
+            //   next: () => {
+            //     this.transactionForm.reset({
+            //       type: 'expense',
+            //       amount: null,
+            //       category: this.expenseCategories[0],
+            //       date: this.todayString(),
+            //       description: '',
+            //     });
+            //     this.loading.set(false);
+            //     this.error.set(null);
+            //     this.transactionCreated.emit();
+            //     toast.success('Successfully created transaction!')
+
+
+            //   },
+            //   error: (err) => {
+            //     this.error.set(err?.error?.message || 'Create failed');
+            //     this.loading.set(false);
+            //     toast.error('Failed to create Transaction!');
+            //   },
+            // })
           );
         }
 

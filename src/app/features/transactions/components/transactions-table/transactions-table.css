@@ -166,27 +166,25 @@
 
 .action-heading,
 .action-cell {
-  text-align: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
 }
 
-.delete-button {
-  padding: 6px 10px;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-sm);
-  background: transparent;
-  color: #a33f39;
-  font: inherit;
-  font-size: 0.8rem;
-  cursor: pointer;
+.edit-button, .delete-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 25px;
+  background-color: white;
+}
+.edit-button img{
+  width: 100%;
 }
 
-.delete-button:hover {
-  background: #fff1ef;
-}
-
-.delete-button:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 2px;
+.delete-button img{
+  width: 100%;
 }
 
 .transactions-table .empty-state {

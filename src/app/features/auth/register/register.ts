@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormBuilder, FormGroup,ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
@@ -14,7 +14,7 @@ import { finalize, delay } from 'rxjs';
 })
 export class Register {
   registerForm:FormGroup;
-  isLoading = false
+  isLoading = signal(false);
 
   constructor(
     private fb: FormBuilder,
@@ -34,7 +34,7 @@ export class Register {
   onSubmit(): void {
     if (this.registerForm.valid){
       this.spinner.show('register');
-      this.isLoading = true;
+      this.isLoading.set(true);
 
 
       this.authService.register(this.registerForm.value)
@@ -43,7 +43,7 @@ export class Register {
         delay(3000),
         finalize(()=>{
           this.spinner.hide('register');
-          this.isLoading = false;
+          this.isLoading.set(false);
         })
       )
       .subscribe({

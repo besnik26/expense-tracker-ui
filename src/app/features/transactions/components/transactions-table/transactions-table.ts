@@ -20,6 +20,8 @@ export interface TransactionFilters {
   templateUrl: './transactions-table.html',
 })
 export class TransactionsTable {
+
+  readonly editRequested = output<Transaction>();
   readonly transactions = input.required<Transaction[]>();
   readonly pagination = input<TransactionPagination | null>(null);
   readonly month = input('');

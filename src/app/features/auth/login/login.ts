@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormBuilder, FormGroup,ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
@@ -16,7 +16,7 @@ import { finalize } from 'rxjs';
 })
 export class Login  {
   loginForm: FormGroup;
-  isLoading = false;
+  isLoading = signal(false);
 
   constructor(
     private fb: FormBuilder,
@@ -36,24 +36,28 @@ export class Login  {
   onSubmit(): void {
     if (this.loginForm.valid){
       this.spinner.show('login');
-      this.isLoading = true;
+      this.isLoading.set(true);
 
       this.authService.login(this.loginForm.value as LoginRequest)
       .pipe(
         finalize(()=>{
           this.spinner.hide('login')
-          this.isLoading = false;
+          this.isLoading.set(false);
         })
       )
       .subscribe({
-        next: () => {
+        next: (response) => {
+          if(!response.success){
+            toast.error('Invalid credentials');
+            return;
+          }
           this.router.navigate(['/dashboard'])
           toast.success('Successfully logged in!')
         },
         error: (err) => {
           console.error('Login failed', err);
-          // alert(err.error?.message ?? 'Invalid credentials');
           toast.error('Invalid credentials');
+          
         }
       });
     }else{

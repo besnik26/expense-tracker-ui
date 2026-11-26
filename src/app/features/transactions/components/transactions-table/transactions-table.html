@@ -103,11 +103,18 @@
                 <td class="date">{{ item.date | date: 'mediumDate' }}</td>
                 <td class="amount">{{ item.amount }}€</td>
                 <td class="action-cell">
+
+                  <button
+                    class="edit-button"
+                    type="button"
+                    (click)="editRequested.emit(item)">
+                    <img src="general/icons/edit-icon.svg" alt="edit">
+                  </button>
                   <button
                     class="delete-button"
                     type="button"
                     (click)="deleteRequested.emit(item._id)">
-                    Delete
+                      <img src="general/icons/delete-icon.svg" alt="delete">
                   </button>
                 </td>
               </tr>
